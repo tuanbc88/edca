@@ -94,12 +94,6 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
-# UV
-#   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
-#   This is especially recommended for binary packages to ensure reproducibility, and is more
-#   commonly ignored for libraries.
-#uv.lock
-
 # poetry
 #   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
 #   This is especially recommended for binary packages to ensure reproducibility, and is more
@@ -112,10 +106,8 @@ ipython_config.py
 #pdm.lock
 #   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
 #   in version control.
-#   https://pdm.fming.dev/latest/usage/project/#working-with-version-control
+#   https://pdm.fming.dev/#use-with-ide
 .pdm.toml
-.pdm-python
-.pdm-build/
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
@@ -166,16 +158,61 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
+kg2rag/v_original/
+output/**/eval_logs/
+# EDCA debug traces (per-stage JSONL or legacy per-item dirs) — regenerated each run, toggle EDC_DEBUG_LOGS
+output/**/oie_logs*
+output/**/oie_raw_llm_output*
+output/**/sd_logs*
+output/**/sc_mcp_logs*
+output/**/sc_logs2*
+output/**/ec_logs*
+# Generated scale-study datasets (regenerate via datasets/build_full_dataset.py) —
+# large + server-generated; keep out of git to avoid pull conflicts.
+datasets/*_full_*.txt
+edca/evaluate/references/*_full_*.txt
+# NOTE: few_shot_examples/*_full_*/ is NOT ignored — those are small hand-authored
+# prompt files (not generated data) that runa.py needs to run; they must be tracked
+# (2026-06-27g: this rule used to also match them, so webnlg_full_{1k,3k,6k,full}
+# few-shot dirs were silently never pushed -> FileNotFoundError on the server).
+# Edu KG corpora are stored as git-trackable JSONL shard folders (datasets/edu_kg_shard_io.py).
+# TRACK the shard folders (PII-scrubbed); IGNORE the derived single .txt (KGC input, rebuilt via
+# `python datasets/edu_kg_shard_io.py <shard_dir> <out.txt>`) + the old monolithic note.
+# Tier A (datasets/edu_kg_core/ — tracked):
+datasets/edu_kg_core.txt
+datasets/edu_kg_core_note.json
+# Tier B: masked shard folder datasets/edu_kg_tierb_masked/ IS tracked (the release breadth layer);
+# the PRE-name-pass shards still carry person-name PII; the .txt + mask log are derived/regenerable.
+datasets/edu_kg_tierb/
+datasets/edu_kg_tierb.txt
+datasets/edu_kg_tierb_masked.txt
+datasets/edu_kg_tierb_namemask_log.jsonl
 
-# Ruff stuff:
-.ruff_cache/
+# Large prior-art PDFs (public papers, re-downloadable) — keep out of git history
+assets/papers/graphrag/
 
-# PyPI configuration file
-.pypirc
+# Raw education corpus (456MB + residual PII) — analysis tracked in EDU_CORPUS_ANALYSIS.md
+raw_data/
 
-# Cursor  
-#  Cursor is an AI-powered code editor.`.cursorignore` specifies files/directories to 
-#  exclude from AI features like autocomplete and code analysis. Recommended for sensitive data
-#  refer to https://docs.cursor.com/context/ignore-files
-.cursorignore
-.cursorindexingignore
+# Experiment outputs — per-machine, NOT in the code repo (servers keep their own).
+# Curated numbers live in RESULTS_*.md. Recover any run from git history if needed.
+output/
+matrix_logs/
+assets/papers/kgc/
+/assets/papers/kbs_papers_sample
+/assets/papers/elsevier_template
+
+# KATE demo-pool embedding caches (rebuilt on demand; the jsonl pools ARE tracked)
+datasets/kate_pool/*.npy
+
+# P31 gold raw-KB response cache (rederivable)
+schemas/.p31_cache_*.json
+.claude/settings.local.json.bak
+
+# KBS reference PDFs pulled for the length calibration (58MB of third-party articles).
+# Regenerate with assets/ref_paper_kbs/download_oa.py; the findings are in FINDINGS.md.
+assets/ref_paper_kbs/pdf/
+
+# KBS guide-for-authors PDF (Elsevier third-party doc; the extracted rules live in
+# KBS_submit_guide.md and assets/ref_paper_kbs/FINDINGS.md).
+assets/guide/

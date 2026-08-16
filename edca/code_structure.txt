@@ -1,0 +1,226 @@
+﻿Folder PATH listing for volume Data
+Volume serial number is 0000028B 8E77:27EE
+E:\GIT-WORKSPACE\EDC\EDCA
+ª   code_structure.txt
+ª   edc_framework.py
+ª   entity_extraction.py
+ª   extract.py
+ª   pipeline_logger.py
+ª   relation_clustering.py
+ª   relation_refinement.py
+ª   schema_canonicalization.py
+ª   schema_definition.py
+ª   schema_retriever.py
+ª   __init__.py
+ª   
++---evaluate
+ª   ª   compare_selfcanon_with_gt.py
+ª   ª   compute_sd_sc_metrics.py
+ª   ª   evaluation_redundancy_relation.py
+ª   ª   evaluation_script.py
+ª   ª   plot_selfcanon.py
+ª   ª   README.md
+ª   ª   run_full_evaluation.py
+ª   ª   run_full_evaluation2.py
+ª   ª   __init__.py
+ª   ª   
+ª   +---ground_truth_relations
+ª   ª       example_schema_ground_truth.csv
+ª   ª       
+ª   +---references
+ª           edu_hcmut01.txt
+ª           example.txt
+ª           rebel.txt
+ª           webnlg.txt
+ª           webnlg_mini_05.txt
+ª           webnlg_mini_20.txt
+ª           wiki-nre.txt
+ª           
++---few_shot_examples
+ª   +---edu_hcmut01
+ª   ª       ee_few_shot_examples.txt
+ª   ª       oie_few_shot_examples.txt
+ª   ª       oie_few_shot_refine_examples.txt
+ª   ª       sd1_entity_few_shot_examples.txt
+ª   ª       sd2a_relation_few_shot_examples.txt
+ª   ª       sd2b_relation_few_shot_examples.txt
+ª   ª       sd3_clasy_few_shot_examples.txt
+ª   ª       sd_few_shot_examples.txt
+ª   ª       
+ª   +---example
+ª   ª       ee_few_shot_examples.txt
+ª   ª       oie_few_shot_examples.txt
+ª   ª       oie_few_shot_examples_v0.txt
+ª   ª       oie_few_shot_examples_v1.txt
+ª   ª       oie_few_shot_refine_examples.txt
+ª   ª       sd1_entity_few_shot_examples.txt
+ª   ª       sd2a_relation_few_shot_examples.txt
+ª   ª       sd2b_relation_few_shot_examples.txt
+ª   ª       sd2b_relation_few_shot_examples_v1_long.txt
+ª   ª       sd2_relation_few_shot_examples.txt
+ª   ª       sd3_clasy_few_shot_examples.txt
+ª   ª       sd_few_shot_examples.txt
+ª   ª       
+ª   +---example2
+ª   ª       ee_few_shot_examples.txt
+ª   ª       oie_few_shot_examples.txt
+ª   ª       oie_few_shot_examples_v0.txt
+ª   ª       oie_few_shot_refine_examples.txt
+ª   ª       sd1_entity_few_shot_examples.txt
+ª   ª       sd2a_relation_few_shot_examples.txt
+ª   ª       sd2b_relation_few_shot_examples.txt
+ª   ª       sd2_relation_few_shot_examples_v1.txt
+ª   ª       sd3_clasy_few_shot_examples.txt
+ª   ª       sd_few_shot_examples.txt
+ª   ª       
+ª   +---hotpot_dev_distractor_v1_updated
+ª   ª       ee_few_shot_examples.txt
+ª   ª       oie_few_shot_examples.txt
+ª   ª       oie_few_shot_examples_v0.txt
+ª   ª       oie_few_shot_refine_examples.txt
+ª   ª       sd1_entity_few_shot_examples.txt
+ª   ª       sd2a_relation_few_shot_examples.txt
+ª   ª       sd2b_relation_few_shot_examples.txt
+ª   ª       sd2b_relation_few_shot_examples_v1_long.txt
+ª   ª       sd2_relation_few_shot_examples.txt
+ª   ª       sd3_clasy_few_shot_examples.txt
+ª   ª       sd_few_shot_examples.txt
+ª   ª       
+ª   +---rebel
+ª   ª       ee_few_shot_examples.txt
+ª   ª       oie_few_shot_examples.txt
+ª   ª       oie_few_shot_refine_examples.txt
+ª   ª       sd_few_shot_examples.txt
+ª   ª       
+ª   +---trivia_chunk_semantic
+ª   ª       ee_few_shot_examples.txt
+ª   ª       oie_few_shot_examples.txt
+ª   ª       oie_few_shot_examples_v0.txt
+ª   ª       oie_few_shot_examples_v1.txt
+ª   ª       oie_few_shot_refine_examples.txt
+ª   ª       sd1_entity_few_shot_examples.txt
+ª   ª       sd2a_relation_few_shot_examples.txt
+ª   ª       sd2b_relation_few_shot_examples.txt
+ª   ª       sd2b_relation_few_shot_examples_v1_long.txt
+ª   ª       sd2_relation_few_shot_examples.txt
+ª   ª       sd3_clasy_few_shot_examples.txt
+ª   ª       sd_few_shot_examples.txt
+ª   ª       
+ª   +---trvia
+ª   ª       ee_few_shot_examples.txt
+ª   ª       oie_few_shot_examples.txt
+ª   ª       oie_few_shot_examples_v0.txt
+ª   ª       oie_few_shot_refine_examples.txt
+ª   ª       sd1_entity_few_shot_examples.txt
+ª   ª       sd2a_relation_few_shot_examples.txt
+ª   ª       sd2b_relation_few_shot_examples.txt
+ª   ª       sd2b_relation_few_shot_examples_v1_long.txt
+ª   ª       sd2_relation_few_shot_examples.txt
+ª   ª       sd3_clasy_few_shot_examples.txt
+ª   ª       sd_few_shot_examples.txt
+ª   ª       
+ª   +---webnlg
+ª   ª       ee_few_shot_examples.txt
+ª   ª       oie_few_shot_examples.txt
+ª   ª       oie_few_shot_refine_examples.txt
+ª   ª       sd1_entity_few_shot_examples.txt
+ª   ª       sd2a_relation_few_shot_examples.txt
+ª   ª       sd2b_relation_few_shot_examples.txt
+ª   ª       sd2_relation_few_shot_examples.txt
+ª   ª       sd3_clasy_few_shot_examples.txt
+ª   ª       sd_few_shot_examples.txt
+ª   ª       sd_relation_definition_fews_hot_sample.txt
+ª   ª       
+ª   +---webnlg_mini_02
+ª   ª       ee_few_shot_examples.txt
+ª   ª       oie_few_shot_examples.txt
+ª   ª       oie_few_shot_examples_v0.txt
+ª   ª       oie_few_shot_refine_examples.txt
+ª   ª       sd1_entity_few_shot_examples.txt
+ª   ª       sd2_relation_few_shot_examples.txt
+ª   ª       sd2_relation_few_shot_examples_v1.txt
+ª   ª       sd3_clasy_few_shot_examples-Copy1.txt
+ª   ª       sd3_clasy_few_shot_examples.txt
+ª   ª       sd_few_shot_examples.txt
+ª   ª       
+ª   +---webnlg_mini_05
+ª   ª       ee_few_shot_examples.txt
+ª   ª       oie_few_shot_examples.txt
+ª   ª       oie_few_shot_refine_examples.txt
+ª   ª       sd_few_shot_examples.txt
+ª   ª       
+ª   +---webnlg_mini_20
+ª   ª       ee_few_shot_examples.txt
+ª   ª       oie_few_shot_examples.txt
+ª   ª       oie_few_shot_refine_examples.txt
+ª   ª       sd_few_shot_examples.txt
+ª   ª       
+ª   +---wiki-nre
+ª           ee_few_shot_examples-Copy1.txt
+ª           ee_few_shot_examples.txt
+ª           oie_few_shot_examples-Copy1.txt
+ª           oie_few_shot_examples.txt
+ª           oie_few_shot_examples_v0.txt
+ª           oie_few_shot_examples_v1.txt
+ª           oie_few_shot_refine_examples-Copy1.txt
+ª           oie_few_shot_refine_examples.txt
+ª           sd1_entity_few_shot_examples.txt
+ª           sd2a_relation_few_shot_examples.txt
+ª           sd2b_relation_few_shot_examples.txt
+ª           sd2b_relation_few_shot_examples_v1_long.txt
+ª           sd2_relation_few_shot_examples.txt
+ª           sd3_clasy_few_shot_examples.txt
+ª           sd_few_shot_examples-Copy1.txt
+ª           sd_few_shot_examples.txt
+ª           
++---prompt_templates
+ª   +---eng
+ª   ª       ee_template.txt
+ª   ª       em_template.txt
+ª   ª       oie_r_template.txt
+ª   ª       oie_r_template_old.txt
+ª   ª       oie_template.txt
+ª   ª       oie_template__edu_version.txt
+ª   ª       oie_template__eng_version.txt
+ª   ª       sc_schema_self_verify.txt
+ª   ª       sc_template.txt
+ª   ª       sc_template_option1_name_only.txt
+ª   ª       sc_template_option2_general_definition.txt
+ª   ª       sc_template_option3_definition.txt
+ª   ª       sc_template_option4_definition_headtail.txt
+ª   ª       sc_template_v1.txt
+ª   ª       sd1_entity_template.txt
+ª   ª       sd2a_relation_template.txt
+ª   ª       sd2b_relation_template.txt
+ª   ª       sd2b_relation_template_v1_long.txt
+ª   ª       sd2_relation_template_v1.txt
+ª   ª       sd3_clasy_template.txt
+ª   ª       sd_template.txt
+ª   ª       sd_template_v1.txt
+ª   ª       
+ª   +---vni
+ª           ee_template.txt
+ª           em_template.txt
+ª           oie_r_template.txt
+ª           oie_template.txt
+ª           oie_template__edu_version.txt
+ª           oie_template__eng_version.txt
+ª           sc_schema_self_verify.txt
+ª           sc_template.txt
+ª           sc_template_option1_name_only.txt
+ª           sc_template_option2_general_definition.txt
+ª           sc_template_option3_definition.txt
+ª           sc_template_option4_definition_headtail.txt
+ª           sd1_entity_template.txt
+ª           sd2a_relation_template.txt
+ª           sd2b_relation_template.txt
+ª           sd3_clasy_template.txt
+ª           sd_template.txt
+ª           
++---utils
+        e5_mistral_utils.py
+        llm_utils.py
+        log_utils.py
+        schema_utils.py
+        __init__.py
+        
