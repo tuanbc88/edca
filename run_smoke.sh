@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================================
-# SMOKE TEST — T4 (16GB), small model, 4-bit. Validates the v2 9-case pipeline
+# SMOKE TEST — small model, 4-bit, fits a 16GB card. Validates the 9-case pipeline
 # end-to-end AND the new token-metering (stage_timing.json must carry a token
 # block). NOT a results run — example2 has no gold KG, so no accuracy is judged.
 #
@@ -10,26 +10,26 @@
 #   2. iter0/stage_timing.json exists and contains: oie_tokens / sd_tokens /
 #      sc_tokens / ec_tokens / tokens_total / tokens_per_item with total_tokens>0.
 #
-# Run:   bash run_smoke_t4.sh
-# Smaller/bigger model:  MODEL=Qwen/Qwen3-1.7B bash run_smoke_t4.sh
+# Run:   bash run_smoke.sh
+# Smaller/bigger model:  MODEL=Qwen/Qwen3-1.7B bash run_smoke.sh
 # Needs (4-bit): pip install -U bitsandbytes
 # =============================================================================
 set -e
 
-# ---- small model on T4, 4-bit -------------------------------------------------
+# ---- small model, 4-bit -------------------------------------------------
 MODEL="${MODEL:-Qwen/Qwen3-4B}"          # override to Qwen3-1.7B for an even faster check
 EMBEDDER="${EMBEDDER:-sentence-transformers/all-MiniLM-L6-v2}"   # light, English (example2 is EN)
 DATASET="${DATASET:-example2}"
 PROMPT_LANG="${PROMPT_LANG:-eng}"
 DATE_TAG="${DATE_TAG:-smoke}"
-OUT="./output/${DATASET}_smoke_t4_${DATE_TAG}"
+OUT="./output/${DATASET}_smoke_${DATE_TAG}"
 
 export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-export EDC_LOAD_IN_4BIT="${EDC_LOAD_IN_4BIT:-1}"   # 4-bit so it fits a T4 with room to spare
+export EDC_LOAD_IN_4BIT="${EDC_LOAD_IN_4BIT:-1}"   # 4-bit so it fits a 16GB card with room to spare
 
 echo "======================================"
-echo ">>> SMOKE TEST (T4 / ${MODEL} / 4bit=${EDC_LOAD_IN_4BIT})"
+echo ">>> SMOKE TEST (${MODEL} / 4bit=${EDC_LOAD_IN_4BIT})"
 echo "Dataset: ${DATASET} (${PROMPT_LANG}) | Mode-1 self-canon | 9 cases + entity-canon | greedy"
 echo "Out    : ${OUT}"
 echo "======================================"

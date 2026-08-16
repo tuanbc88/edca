@@ -31,7 +31,7 @@ for s in "${SEEDS[@]}"; do
   tmux new -d -s "$sess" "export PATH=$ENVBIN:\$PATH HF_HOME=/home/jovyan/.cache/huggingface; \
 cd $REPO && env $COMMON DATASET=wiki-nre RUN_MODE=$MODE USE_CLUSTER=false SEED=$s \
 RESUME_FROM=sd REUSE_STAGE_DIR=$OIE_SRC \
-bash run_selfcanon_iter2_A100_qwen3.sh 2>&1 | tee $log; echo EXIT=\$? >> $log"
+bash run_edca.sh 2>&1 | tee $log; echo EXIT=\$? >> $log"
   echo "launched $sess -> $log"
 done
 

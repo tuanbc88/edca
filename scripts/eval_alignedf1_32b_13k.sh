@@ -24,7 +24,7 @@ cd "$BASE/edc"
 date -u +%Y-%m-%dT%H:%M:%SZ
 
 # --embedder and --rel_threshold are left at their defaults deliberately: MiniLM is the metric's
-# fixed ruler (run_eval_iter.sh pins EVAL_EMBEDDER to it) and 0.5 is the operating point every
+# fixed ruler (run_eval.sh pins EVAL_EMBEDDER to it) and 0.5 is the operating point every
 # reported aligned-F1 uses. Passing anything else here would silently change the metric.
 
 echo "=== CROSS-CHECK: 6k cut (tab:scale prints 0.318 for phi=1) ==="

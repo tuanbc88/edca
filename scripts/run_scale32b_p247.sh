@@ -54,7 +54,7 @@ GPU_TAG=H100 DATE_TAG=20260627open \
 EDC_LOAD_IN_4BIT=0 \
 DATASET=webnlg_full_full RUN_MODE=1 USE_CLUSTER=false \
 RESUME_FROM=sd EDC_RESUME_INPLACE=1 \
-bash run_selfcanon_iter2_A100_qwen3.sh
+bash run_edca.sh
 RC=$?
 set -e
 

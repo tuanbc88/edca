@@ -39,7 +39,7 @@ from edca.evaluate.retrieval_recall_metric import GT_CONFIG, load_kg_txt
 DEFAULT_TAUS = [0.40, 0.45, 0.50, 0.55, 0.60, 0.70, 0.75, 0.80, 0.85, 0.90]
 OPERATING_TAU = 0.50
 # ★ MUST be the metric's fixed RULER, not the pipeline's SC embedder.
-# `run_eval_iter.sh` pins EVAL_EMBEDDER=MiniLM precisely so runs stay comparable across the
+# `run_eval.sh` pins EVAL_EMBEDDER=MiniLM precisely so runs stay comparable across the
 # embedder sweep, and `mode1_metric.py` / `threshold_sweep.py` both use it. This file defaulted
 # to bge-m3 until 2026-08-10, which made the sweep vary the ruler AND tau_a at once: measured at
 # the same tau_a=0.70 it moved alignment coverage by +0.11..+0.28 and wiki-nre F1 by up to +0.087

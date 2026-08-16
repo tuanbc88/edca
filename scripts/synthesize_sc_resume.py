@@ -10,7 +10,7 @@ text + triplets[{input_triplet, pred_relation, top_k}]) and the loader guard
 
 USAGE:
   python scripts/synthesize_sc_resume.py <run_dir>/iter0
-  # then: RESUME_FROM=sc EDC_RESUME_INPLACE=1 ... bash run_selfcanon_iter2_A100_qwen3.sh
+  # then: RESUME_FROM=sc EDC_RESUME_INPLACE=1 ... bash run_edca.sh
 """
 import os, sys, json, glob
 

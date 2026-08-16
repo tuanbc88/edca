@@ -2,12 +2,12 @@
 # =============================================================================
 # Evaluate ONE iteration of a finished run. Single source of truth for the eval
 # suite (the main run scripts call this per-iteration). Mirrors the eval logic
-# that used to be inlined in run_selfcanon_iter2_A100_qwen3.sh.
+# that used to be inlined in run_edca.sh.
 #
 # Usage (env-parameterized):
 #   DATASET=webnlg \
 #   METHOD=selfcanon2_mode3_item_qwen3-8b_bgem3_A100_20260622_refe2e1 \
-#   ITER=iter0 RUN_MODE=3 bash run_eval_iter.sh
+#   ITER=iter0 RUN_MODE=3 bash run_eval.sh
 #
 # METHOD = the folder name AFTER "<dataset>_" (i.e. output/<DATASET>_<METHOD>/<ITER>).
 # RUN_MODE: 1 = self-canon (full + mode1 + redundancy); 2/3 = seeded (full + recall + error-attr).

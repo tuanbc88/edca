@@ -6,7 +6,7 @@
 # Qwen2.5-7B at bf16 + bge-m3 so the ONLY variable vs the headline is the backbone, which is what
 # licenses a paper claim (the tab:edc "EDCA (Qwen2.5-7B backbone, no-refine)" row).
 #
-# NOTE: OIE_MODEL cascades to SD/SC/EE (run_selfcanon_iter2_A100_qwen3.sh L92-94/102) -- that is
+# NOTE: OIE_MODEL cascades to SD/SC/EE (run_edca.sh L92-94/102) -- that is
 # intended here: we are swapping the whole shared backbone (see DECISIONS 2026-07-15).
 #
 # Config vs the headline (Qwen3-8B): IDENTICAL except the backbone.
@@ -24,7 +24,7 @@
 #
 # Runtime (A100, bf16, ~7B): webnlg ~15h + rebel ~16h + wiki-nre ~11h = ~42h total.
 # VRAM: 7B bf16 ~15GB + bge-m3 ~2GB -> needs >=24GB (A100-40GB fine; 20GB card is too tight).
-# Eval is AUTOMATIC (the runner calls run_eval_iter.sh per mode) -- no separate eval step.
+# Eval is AUTOMATIC (the runner calls run_eval.sh per mode) -- no separate eval step.
 
 MODEL="${OIE_MODEL:-Qwen/Qwen2.5-7B-Instruct}"
 TAG="${MODEL_TAG:-qwen2.5-7b}"
@@ -56,7 +56,7 @@ for DS in $DATASETS; do
   RUN_MODE=3 \
   USE_CLUSTER=false \
   RESUME_FROM="$RESUME_FROM" \
-      bash "$(dirname "$0")/run_selfcanon_iter2_A100_qwen3.sh" \
+      bash "$(dirname "$0")/run_edca.sh" \
     && echo ">>> DONE $DS" \
     || echo ">>> FAILED $DS  (fix, then: DATASETS=$DS RESUME_FROM=<stage> bash run_backbone_headline.sh)"
 done

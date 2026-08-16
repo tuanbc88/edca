@@ -61,7 +61,7 @@ EMB_TAG=minilm SC_EMBEDDER=sentence-transformers/all-MiniLM-L6-v2 \
 GPU_TAG=H100 DATE_TAG=0627open \
 DATASET=webnlg RUN_MODE=1 USE_CLUSTER=false \
 EDC_LOAD_IN_4BIT=0 \
-bash run_selfcanon_iter2_A100_qwen3.sh
+bash run_edca.sh
 RC=$?
 set -e
 

@@ -45,6 +45,22 @@ matches or exceeds it on two of three benchmarks while falling below on the thir
 | **Canonicalize** (CaSA) | retrieve top-*k* candidates, then reuse or create. The stage under study |
 | **Assess** | accuracy where a gold graph exists, plus canonicalization clustering metrics, stage-wise error attribution, and gold-free structural diagnostics |
 
+### CaSA — the decision under study
+
+![CaSA](docs/casa.png)
+
+One relation can surface three ways in the same corpus — *is located in*, *situated in*, *located at*.
+Are they one schema element or three? CaSA makes that call explicitly, and makes the **information the
+LLM sees while calling it** the variable: a relation signal φ selects among the name, three definition
+styles and the argument types; an entity signal φᵉ selects among name, definition and parent type. The
+retrieved candidates and the schema policy π condition the same decision.
+
+The two ways it fails are opposite and both are visible on the right of the figure: creating too often
+**fragments** the graph into near-duplicate relations, reusing too eagerly **collapses** distinct ones.
+A single triple never shows which is happening, because the damage is to the vocabulary the *next*
+document will be judged against — which is why the assessment stage scores the schema, not just the
+triples.
+
 ## Repository layout
 
 ```
@@ -60,11 +76,12 @@ edca/                    the framework
                            diagnosis and comparison, error attribution, structural diagnostics
   prompt_templates/        per-stage prompts (English and Vietnamese)
   few_shot_examples/       per-dataset demonstrations
-runa.py                  entry point (all stages; the .sh launchers wrap it)
-run_selfcanon_iter2_A100_qwen3.sh   the runner -- every experiment is this under different env vars
-run_smoke_t4.sh          five-minute end-to-end check on a tiny fixture
-run_eval_iter.sh         evaluate a run that already exists on disk
+runa.py                  entry point; the launchers below wrap it
+run_edca.sh              the runner — every experiment is this under different env vars
+run_smoke.sh             five-minute end-to-end check on a tiny fixture
+run_eval.sh              evaluate a run that already exists on disk
 run_backbone_headline.sh the headline backbone row
+docs/                    the two figures used by this README
 schemas/                 gold schemas and the contributed typed entity-schema layer + its builders
 datasets/                dataset builders and the small benchmark inputs
 scripts/                 things that are not metrics: cross-run aggregation into tables, the
@@ -76,31 +93,27 @@ environment.yml          the pinned stack
 ## Install
 
 ```bash
-conda create -n edca python=3.9 -c conda-forge --override-channels
+conda env create -f environment.yml
 conda activate edca
-pip install torch==2.8.0 --index-url https://download.pytorch.org/whl/cu128
-pip install transformers==4.57.6 tokenizers==0.22.2 accelerate==1.10.1 \
-            bitsandbytes==0.48.2 sentence-transformers==3.0.1
-pip install pandas openpyxl scikit-learn nervaluate tqdm huggingface_hub \
-            datasets openai evaluate peft nltk unidecode ujson beautifulsoup4 matplotlib
 python -c "import nltk; nltk.download('punkt_tab')"
 ```
 
-> `punkt_tab` is not optional. Without it the closed-schema evaluation scores every item zero while
-> B-cubed still looks normal, and nothing raises an error.
+> The `punkt_tab` line cannot go in the YAML and is not optional. Without it the closed-schema
+> evaluation scores every item `0.000` while B-cubed still looks normal, and nothing raises an error.
 
-`environment.yml` is kept for reference but the pinned list above is what a working box runs.
+`environment.yml` pins the stack a working GPU box runs. `torch` is pinned to a CUDA 12.8 build; on a
+different driver, change the `--extra-index-url` line to the matching wheel index and leave the rest.
 
 ## Quick start
 
 A five-minute smoke test on a tiny English fixture, 4-bit so it fits a small card:
 
 ```bash
-bash run_smoke_t4.sh
+bash run_smoke.sh
 ```
 
 It exercises the whole pipeline — extraction, definition, all nine relation signals, entity
-canonicalization — and writes to `./output/example2_smoke_t4_smoke/`.
+canonicalization — and writes to `./output/example2_smoke_smoke/`.
 
 ## Running an experiment
 
@@ -111,7 +124,7 @@ MODEL_TAG=qwen3-8b OIE_MODEL=Qwen/Qwen3-8B \
 EMB_TAG=bgem3 SC_EMBEDDER=BAAI/bge-m3 \
 DATASET=webnlg RUN_MODE=1 USE_CLUSTER=false \
 DATE_TAG=myrun \
-bash run_selfcanon_iter2_A100_qwen3.sh
+bash run_edca.sh
 ```
 
 | variable | default | meaning |
@@ -147,14 +160,14 @@ and forty.
 ### Evaluating an existing run
 
 ```bash
-DATASET=webnlg METHOD=<method_string> ITER=iter0 bash run_eval_iter.sh
+DATASET=webnlg METHOD=<method_string> ITER=iter0 bash run_eval.sh
 ```
 
 ## Reproducing the paper
 
 Every experiment is the same runner under different environment variables, so they are given as
-templates rather than as one script each. Four launchers ship: the runner itself, `run_eval_iter.sh`,
-`run_smoke_t4.sh`, and `run_backbone_headline.sh` for the headline row.
+templates rather than as one script each. Four launchers ship: the runner itself, `run_eval.sh`,
+`run_smoke.sh`, and `run_backbone_headline.sh` for the headline row.
 
 **The 9×3 design-space grid** — nine signals are always computed in one pass, so only the policy and
 the retrieval mode vary:
@@ -163,7 +176,7 @@ the retrieval mode vary:
 for MODE in 1 2 3; do
   for CLUSTER in false true; do
     DATASET=webnlg RUN_MODE=$MODE USE_CLUSTER=$CLUSTER DATE_TAG=grid \
-    bash run_selfcanon_iter2_A100_qwen3.sh
+    bash run_edca.sh
   done
 done
 ```
@@ -175,7 +188,7 @@ for M in "Qwen/Qwen3-8B:qwen3-8b" "Qwen/Qwen2.5-7B-Instruct:qwen2.5-7b" "google/
   OIE_MODEL=${M%%:*} MODEL_TAG=${M##*:} EDC_LOAD_IN_4BIT=1 \
   EMB_TAG=minilm SC_EMBEDDER=sentence-transformers/all-MiniLM-L6-v2 \
   DATASET=webnlg RUN_MODE=3 USE_CLUSTER=false DATE_TAG=backbone \
-  bash run_selfcanon_iter2_A100_qwen3.sh
+  bash run_edca.sh
 done
 ```
 
@@ -184,7 +197,7 @@ prefix slices, not separate jobs, so a whole scaling row shares one provenance:
 
 ```bash
 DATASET=webnlg_full_full RUN_MODE=1 USE_CLUSTER=false DATE_TAG=scale \
-bash run_selfcanon_iter2_A100_qwen3.sh
+bash run_edca.sh
 
 python datasets/slice_sc_results.py --full output/<the 13k iter0> \
        --model_tag qwen3-8b --sizes 1k=1000,3k=3000,6k=6000 --verify
@@ -201,7 +214,7 @@ source of variance:
 ```bash
 for S in 1 2 3; do
   SD_TEMPERATURE=0.3 SEED=$S DATASET=webnlg RUN_MODE=1 USE_CLUSTER=false DATE_TAG=seeds \
-  bash run_selfcanon_iter2_A100_qwen3.sh
+  bash run_edca.sh
 done
 python scripts/aggregate_t7_seeds.py --out output/seed_summary.csv
 ```
@@ -211,7 +224,7 @@ python scripts/aggregate_t7_seeds.py --out output/seed_summary.csv
 ```bash
 DATASET=edu_kg_core PROMPT_LANG=vni RUN_MODE=1 USE_CLUSTER=false \
 EMB_TAG=bgem3 SC_EMBEDDER=BAAI/bge-m3 DATE_TAG=edukg \
-bash run_selfcanon_iter2_A100_qwen3.sh
+bash run_edca.sh
 ```
 
 The launchers under `scripts/` (`run_scale32b_p247.sh`, `run_wikinre_seeds_pod.sh`,

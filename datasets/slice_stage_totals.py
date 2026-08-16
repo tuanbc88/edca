@@ -24,7 +24,7 @@ Usage (place sliced totals where REUSE_STAGE_DIR expects them, under <out>/iter0
       --out output/_scale_reuse_slices/webnlg_full_1k/iter0
 
 Then run the size-N cell with:  REUSE_STAGE_DIR=output/_scale_reuse_slices/webnlg_full_1k \
-      RESUME_FROM=sc DATASET=webnlg_full_1k ... bash run_selfcanon_iter2_A100_qwen3.sh
+      RESUME_FROM=sc DATASET=webnlg_full_1k ... bash run_edca.sh
 (run_track3_scale_reuse.sh wires all of this automatically).
 
 SAFETY: reuse is only valid if the size-N dataset really is the first-N prefix of `full`.

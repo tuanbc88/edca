@@ -273,10 +273,10 @@ fi
 # Evaluate EVERY iteration the run produced, not just the last one: a refine run
 # now gets iter0 (no-refine) AND iter1.. (refined), so the no-refine vs refined
 # comparison is available without a separate eval pass. The metric suite lives in
-# run_eval_iter.sh (single source of truth; mirrors the per-mode branch logic).
+# run_eval.sh (single source of truth; mirrors the per-mode branch logic).
 if [ "$DO_REFINEMENT" = true ]; then EVAL_ITERS=$(seq 0 ${REFINE_ITERS}); else EVAL_ITERS=0; fi
 for IT in ${EVAL_ITERS}; do
     DATASET="${DATASET}" METHOD="${METHOD_STR}" ITER="iter${IT}" \
         RUN_MODE="${RUN_MODE}" EVAL_EMBEDDER="${EVAL_EMBEDDER}" \
-        bash run_eval_iter.sh
+        bash run_eval.sh
 done
